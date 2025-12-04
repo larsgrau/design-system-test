@@ -1,14 +1,15 @@
-# SDX AI Readiness Testing Tool - Concept Document
+# SDX AI Readiness Testing Tool - Refined Concept Document
 
 ## Executive Summary
 
-This document outlines the concept for a testing tool that evaluates how well AI coding assistants understand and apply the SDX design system. The tool uses a three-way comparison methodology (Figma design → Existing implementation → AI-generated code) to identify gaps and generate actionable recommendations for improving SDX's AI-friendliness.
+This document outlines a comprehensive testing tool that evaluates SDX's AI readiness through three sequential assessments: (a) design library quality for AI consumption, (b) consistency between Figma design and codebase, and (c) code implementation quality. Results are displayed in a web dashboard with prioritized recommendations, and test runs are logged with KPIs for tracking progress over time.
 
 ---
 
 ## 1. Problem Statement
 
 ### Current Challenge
+
 As AI assistants become primary coding tools, design systems must be optimized for machine consumption, not just human documentation. When AI generates code using SDX, common failures occur:
 
 - **Token Misuse**: Hardcoded values (`#0066CC`) instead of semantic tokens (`var(--color-action-primary)`)
@@ -18,6 +19,7 @@ As AI assistants become primary coding tools, design systems must be optimized f
 - **Architecture Mismatch**: Implementation styles that don't match SDX patterns
 
 ### Business Impact
+
 - Inconsistent implementations across Swisscom products
 - Technical debt from AI-generated code
 - Maintenance burden from undocumented patterns
@@ -29,801 +31,424 @@ As AI assistants become primary coding tools, design systems must be optimized f
 
 ## 2. Solution Overview
 
-### Core Concept
-**Three-Way Comparison Testing**
+### Three-Phase Assessment Architecture
 
-```
-┌───────────────┐
-│ Figma Design  │ ← Ground truth (design intent)
-└───────┬───────┘
-        │
-        ├──────────────────────────────┐
-        │                              │
-        ▼                              ▼
-┌───────────────┐            ┌─────────────────┐
-│  Existing     │            │  AI-Generated   │
-│  Production   │            │  Code           │
-│  Code         │            │  (Cursor)       │
-└───────┬───────┘            └────────┬────────┘
-        │                             │
-        └─────────────┬───────────────┘
-                      │
-                      ▼
-              ┌───────────────┐
-              │  Automated    │
-              │  Analysis     │
-              └───────┬───────┘
-                      │
-                      ▼
-              ┌───────────────┐
-              │  Manual       │
-              │  Review       │
-              └───────┬───────┘
-                      │
-                      ▼
-              ┌───────────────┐
-              │  Gap Report   │
-              │  with         │
-              │  Recommendations│
-              └───────────────┘
-```
-
-### Key Differentiators
-1. **Evidence-Based**: Real code comparisons, not theoretical assessments
-2. **Reproducible**: Version-controlled test scenarios with named iterations
-3. **Actionable**: Specific recommendations for SDX improvements
-4. **Measurable**: Quantified scores track improvement over time
-5. **Phased**: Incremental testing from tokens → components → full system
-
----
-
-### Data Sources & Figma Access
-
-**File-Based Approach for Testing**
-
-All test scenarios use **static file-based Figma data** stored in version control. This ensures:
-- **Reproducibility**: Same design data across all test runs
-- **Version Control**: Track design changes over time with clear diffs
-- **Offline Testing**: No dependency on Figma access or network connectivity
-- **CI/CD Ready**: Tests can run in automated pipelines without external dependencies
-- **Stable Comparisons**: Design data doesn't change between baseline and post-improvement test runs
-
-**Figma Data Format**
-
-Test scenarios include structured Figma exports in JSON format containing:
-- Token definitions with metadata (name, value, category, system, status)
-- Component specifications (name, variants, props, usage examples)
-- Design specs for test scenarios (layout, spacing, typography, colors)
-- Version/timestamp information
-- Source reference (Figma file URL, export date)
-
-**MCP as Optional Exploration Tool**
-
-Figma MCP (Model Context Protocol) integration is **optional** and used only for:
-- **Initial Discovery**: One-time exploration of Figma library structure
-- **Data Extraction**: Initial export of tokens and components to structured format
-- **Analysis**: Real-time queries during development and analysis phases
-
-**Important**: MCP is **not used during test execution**. All test scenarios must have complete file-based data in the `reference/` directory. MCP is a convenience tool for initial setup and exploration, not a dependency for running tests.
-
----
-
-## 3. Testing Methodology
-
-### Phase 1: Foundation (Tokens)
-**Objective**: Assess AI's understanding of design token system
-
-**Test Scenarios**:
-- Build simple components using only design tokens
-- Create color palettes from semantic tokens
-- Implement spacing and layout with token system
-
-**Success Metrics**:
-- % of values using tokens vs hardcoded
-- Correct semantic token selection rate
-- Token naming convention adherence
-
-**Example Test**:
-```
-Input: "Create a primary button with standard padding and brand color"
-Expected: Uses --color-action-primary, --space-3, etc.
-Measure: Token usage rate and semantic correctness
-```
-
-### Phase 2: Core Components
-**Objective**: Assess AI's ability to discover and use SDX components
-
-**Test Scenarios**:
-- Build common UI patterns (forms, navigation, cards)
-- Compose complex components from SDX primitives
-- Configure components with proper props/attributes
-
-**Success Metrics**:
-- % of SDX components used vs custom implementations
-- Proper component import and usage
-- Correct prop/attribute configuration
-
-**Example Test**:
-```
-Input: "Create a form with text input, select dropdown, and submit button"
-Expected: Uses <sdx-input>, <sdx-select>, <sdx-button>
-Measure: Component discovery and usage accuracy
-```
-
-### Phase 3: Complete System
-**Objective**: Assess full design system application in complex scenarios
-
-**Test Scenarios**:
-- Reproduce pages from real Swisscom products (e.g., My Swisscom, other internal tools)
-- Build complex layouts with multiple patterns
-- Implement accessible, production-ready UIs
-
-**Success Metrics**:
-- Overall pattern compliance score
-- Accessibility compliance rate
-- Architecture match percentage
-- Visual similarity to reference design
-
-**Example Test**:
-```
-Input: Screenshot + description of a complex Swisscom product page
-Expected: Faithful reproduction using SDX components and patterns
-Measure: Comprehensive gap analysis across all categories
-```
-
----
-
-## 4. Gap Detection Framework
-
-### Automated Detection Rules
-
-#### 1. Token Misuse Detection
-```javascript
-const tokenChecks = {
-  colors: {
-    pattern: /#[0-9A-Fa-f]{3,6}|rgb\(|rgba\(/,
-    expected: /var\(--color-/,
-    severity: 'high'
-  },
-  spacing: {
-    pattern: /margin|padding:\s*\d+px/,
-    expected: /var\(--space-/,
-    severity: 'medium'
-  },
-  typography: {
-    pattern: /font-size:\s*\d+px/,
-    expected: /var\(--font-size-/,
-    severity: 'medium'
-  }
-};
-```
-
-#### 2. Component Import Detection
-```javascript
-const componentChecks = {
-  sdxImports: {
-    pattern: /from ['"]@swisscom\/sdx['"]/,
-    components: /<sdx-\w+/g,
-    severity: 'high'
-  },
-  customImplementations: {
-    pattern: /<button|<input|<select/,
-    expectedAlternative: 'sdx-button|sdx-input|sdx-select',
-    severity: 'high'
-  }
-};
-```
-
-#### 3. Pattern Validation
-```javascript
-const patternChecks = {
-  layout: {
-    expectedClasses: ['row', 'col', 'container'],
-    sdxScope: /class=["'].*sdx.*["']/,
-    severity: 'medium'
-  },
-  styling: {
-    avoidInlineStyles: true,
-    preferredApproach: 'CSS variables',
-    severity: 'low'
-  }
-};
-```
-
-#### 4. Accessibility Checks
-```javascript
-const a11yChecks = {
-  ariaLabels: {
-    required: ['button[aria-label]', '[role]'],
-    severity: 'critical'
-  },
-  semanticHTML: {
-    preferredTags: ['header', 'nav', 'main', 'section'],
-    severity: 'high'
-  },
-  keyboardNav: {
-    attributes: ['tabindex', 'aria-describedby'],
-    severity: 'critical'
-  }
-};
-```
-
-### Manual Review Checklist
-
-**Visual Comparison**:
-- [ ] Layout matches Figma design
-- [ ] Spacing and proportions accurate
-- [ ] Typography hierarchy correct
-- [ ] Color usage semantically correct
-
-**Functional Comparison**:
-- [ ] Interactive states work (hover, focus, active)
-- [ ] Components behave as documented
-- [ ] Responsive behavior appropriate
-
-**Architecture Review**:
-- [ ] Code structure follows SDX patterns
-- [ ] File organization logical
-- [ ] Naming conventions consistent
-- [ ] Comments and documentation adequate
-
-**Accessibility Audit**:
-- [ ] Keyboard navigation functional
-- [ ] Screen reader compatibility
-- [ ] Focus management appropriate
-- [ ] ARIA attributes correct
-
----
-
-## 5. Test Scenario Structure
-
-### Directory Organization
-```
-test-scenarios/
-├── versions/
-│   ├── baseline-2024-12/
-│   │   ├── metadata.json
-│   │   ├── overall-report.md
-│   │   └── scenarios/
-│   │       ├── 001-button-variants/
-│   │       ├── 002-form-layout/
-│   │       └── 003-navigation-menu/
-│   │
-│   ├── post-doc-improvements/
-│   │   └── ...
-│   │
-│   └── post-mcp-integration/
-│       └── ...
-│
-└── templates/
-    └── scenario-template/
-```
-
-### Individual Scenario Structure
-```
-001-button-variants/
-├── input/
-│   ├── design.png              # Figma export or screenshot
-│   ├── specification.md        # What to build (description)
-│   └── prompt.md               # Exact prompt given to AI
-│
-├── reference/
-│   ├── figma-data.json         # Structured Figma export (tokens, components, specs)
-│   ├── figma-specs.md          # Human-readable design specifications (derived from JSON)
-│   └── existing-code/          # Production implementation
-│       ├── component.tsx
-│       └── styles.css
-│
-├── ai-generated/
-│   ├── code/                   # AI's implementation
-│   │   ├── component.tsx
-│   │   └── styles.css
-│   └── metadata.json           # Context (AI model, date, etc.)
-│
-├── analysis/
-│   ├── automated-findings.json # Automated detection results
-│   ├── manual-review.md        # Human reviewer notes
-│   └── comparison-screenshots/ # Visual diffs if needed
-│
-└── report/
-    └── gap-report.md           # Scenario-specific gap report
-```
-
-### Metadata Schema
-```json
-{
-  "scenario_id": "001-button-variants",
-  "version": "baseline-2024-12",
-  "date_generated": "2024-12-03T10:30:00Z",
-  "phase": "1-foundation",
-  "sdx_version": "3.5.0",
-  "ai_context": {
-    "tool": "Cursor",
-    "model": "claude-sonnet-4",
-    "cursor_version": "0.42.0"
-  },
-  "test_type": "component-usage",
-  "complexity": "simple",
-  "reviewer": "larsen",
-  "scores": {
-    "token_usage": 45,
-    "component_usage": 60,
-    "pattern_compliance": 50,
-    "accessibility": 40,
-    "architecture": 55,
-    "overall": 50
-  }
-}
-```
-
----
-
-## 6. Gap Report Format
-
-### Structure
-```markdown
-# Gap Report: {Scenario Name}
-**Version**: {version-name}  
-**Date**: {date}  
-**Phase**: {1-foundation | 2-components | 3-complete}  
-**Overall Score**: {0-100}
-
----
-
-## Executive Summary
-Brief overview of test, key findings, and priority recommendations.
-
----
-
-## Test Details
-
-### Input
-- **Design Reference**: [Link to Figma or screenshot]
-- **Prompt Given**: [Exact prompt]
-- **Expected Outcome**: [What good looks like]
-
-### Comparison Sources
-- **Figma Design**: [Link/screenshot]
-- **Existing Implementation**: [Link to production code]
-- **AI Generated**: [Link to generated code]
-
----
-
-## Gap Analysis
-
-### 1. Token Misuse (Score: X/100)
-
-#### Findings
-- **Found**: 12 instances of hardcoded colors
-- **Expected**: Use of semantic color tokens
-
-#### Examples
-
-**❌ AI Generated**:
-```css
-.button {
-  color: #0066CC;
-  padding: 16px 24px;
-}
-```
-
-**✅ Should Be**:
-```css
-.button {
-  color: var(--color-action-primary);
-  padding: var(--space-4) var(--space-6);
-}
-```
-
-#### Impact
-- **Severity**: High
-- **Affects**: Consistency, maintainability, theme support
-- **Effort to Fix**: Low (search/replace in generated code)
-
----
-
-### 2. Component Reinvention (Score: X/100)
-
-#### Findings
-- **Found**: Custom button implementation
-- **Expected**: Usage of `<sdx-button>`
-
-#### Examples
-
-**❌ AI Generated**:
-```tsx
-<button className="custom-btn" onClick={handleClick}>
-  Click Me
-</button>
-```
-
-**✅ Should Be**:
-```tsx
-<sdx-button theme="primary" onClick={handleClick}>
-  Click Me
-</sdx-button>
-```
-
-#### Impact
-- **Severity**: Critical
-- **Affects**: Component library adoption, maintenance
-- **Effort to Fix**: Medium (component replacement)
-
----
-
-### 3. Pattern Violations (Score: X/100)
-[Similar structure...]
-
-### 4. Accessibility Gaps (Score: X/100)
-[Similar structure...]
-
-### 5. Architecture Mismatch (Score: X/100)
-[Similar structure...]
-
----
-
-## Recommendations
-
-### Priority 1: Critical (Do First)
-1. **Improve Component Discoverability**
-   - **Issue**: AI doesn't find `<sdx-button>` component
-   - **Recommendation**: Add clear component index to documentation
-   - **Expected Impact**: 40% improvement in component usage
-   - **Effort**: Low (documentation update)
-
-2. **Document Token System More Prominently**
-   - **Issue**: AI uses hardcoded values instead of tokens
-   - **Recommendation**: Create "Tokens First" guide in getting started
-   - **Expected Impact**: 50% reduction in token misuse
-   - **Effort**: Medium (documentation + examples)
-
-### Priority 2: High (Do Soon)
-[...]
-
-### Priority 3: Medium (Nice to Have)
-[...]
-
----
-
-## Reproducibility
-
-### Test Environment
-- SDX Version: 3.5.0
-- AI Tool: Cursor 0.42.0
-- AI Model: Claude Sonnet 4
-- Date: 2024-12-03
-
-### Rerun Instructions
-1. Use exact prompt from `input/prompt.md`
-2. Compare against reference code in `reference/existing-code/`
-3. Run automated analysis: `npm run analyze:scenario 001-button-variants`
-4. Review findings and update scores
-
----
-
-## Attachments
-- [Figma Design Link]
-- [Visual Comparison Screenshots]
-- [Full Code Diff]
-- [Automated Analysis JSON]
-```
-
----
-
-## 7. Tooling Architecture
-
-### System Components
+The tool performs three sequential assessments to comprehensively evaluate SDX's AI readiness:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                     Test Runner CLI                      │
-│  Commands: init, run, analyze, report, compare          │
-└────────────────────────┬────────────────────────────────┘
-                         │
-        ┌────────────────┼────────────────┐
-        │                │                │
-        ▼                ▼                ▼
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│  Scenario    │  │    Code      │  │   Report     │
-│  Manager     │  │   Analyzer   │  │  Generator   │
-└──────┬───────┘  └──────┬───────┘  └──────┬───────┘
-       │                 │                  │
-       ▼                 ▼                  ▼
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│  Version     │  │   Finding    │  │  Comparison  │
-│  Control     │  │   Store      │  │   Engine     │
-└──────────────┘  └──────────────┘  └──────────────┘
+│  Phase A: Design Library AI Quality Assessment          │
+│  - Token naming consistency                             │
+│  - Component documentation clarity                      │
+│  - Machine-readability                                  │
+│  - Token completeness                                   │
+│  - Component discoverability                            │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│  Phase B: Design-Code Consistency Assessment            │
+│  - Check Figma code references (if available)           │
+│  - Count design components linked to code components     │
+│  - Token mapping verification (Figma → CSS variables)   │
+│  - Component mapping verification (Figma → Web Comp)    │
+│  - Identify orphaned components (design or code only)   │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│  Phase C: Code Implementation Quality Assessment       │
+│  - Token usage patterns                                 │
+│  - Component architecture                               │
+│  - Code documentation quality                           │
+│  - Accessibility implementation                         │
+│  - Pattern compliance                                   │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│  Dashboard: Metrics + Prioritized Recommendations     │
+│  - Overall AI Readiness Score                           │
+│  - Design Quality Score                                 │
+│  - Code Quality Score                                    │
+│  - Design-Code Consistency Score                        │
+└─────────────────────────────────────────────────────────┘
 ```
 
-### CLI Interface
+### Key Differentiators
 
-```bash
-# Initialize new test version
-sdx-test init --version "baseline-2024-12"
+1. **Comprehensive Assessment**: Three-phase evaluation covering design, consistency, and code quality
+2. **Actionable Insights**: Prioritized recommendations for both design library and codebase
+3. **Progress Tracking**: Test run logging with KPIs to measure improvement over time
+4. **Web Dashboard**: Visual interface with export capabilities (Markdown, PDF)
+5. **Advanced Testing**: Once quality thresholds are met, AI generation testing compares AI output to human implementations
 
-# Create new test scenario
-sdx-test scenario create \
-  --id "001-button-variants" \
-  --phase "1-foundation" \
-  --design "./designs/buttons.png" \
-  --prompt "Create all button variants from the design"
+---
 
-# Import Figma data from file
-sdx-test import-figma \
-  --scenario "001-button-variants" \
-  --file "./figma-exports/buttons-export.json"
-# Imports structured Figma data (tokens, components, specs) into scenario
+## 3. Phase A: Design Library AI Quality Assessment
 
-# Export current Figma data for a scenario (if using MCP for extraction)
-sdx-test export-figma \
-  --scenario "001-button-variants" \
-  --output "./figma-exports/"
-# Exports current Figma data to structured JSON format
+### Objective
 
-# Run AI generation (interactive)
-sdx-test run --scenario "001-button-variants"
-# This opens Cursor with the prompt, user does the vibe coding
+Assess how well the Figma design library is structured for AI consumption and understanding.
 
-# Analyze generated code
-sdx-test analyze --scenario "001-button-variants"
-# Runs automated detection, outputs findings JSON
+### Metrics to Measure
 
-# Manual review (opens editor)
-sdx-test review --scenario "001-button-variants"
-# Opens manual review checklist in editor
+#### 1. Token Naming Consistency
+- Count token systems found (currently 3: Primary, SDX-prefixed, Legacy)
+- Calculate percentage of components using each system
+- Identify mixed-system usage within components
+- **Score**: 0-100 based on system uniformity
 
-# Generate gap report
-sdx-test report --scenario "001-button-variants"
-# Combines automated + manual findings into gap report
+#### 2. Component Documentation Clarity
+- Check for component descriptions in Figma
+- Verify naming conventions (e.g., `Button_primary` vs `ButtonPrimary`)
+- Assess state documentation completeness
+- Check for usage examples and guidelines
+- **Score**: 0-100 based on documentation coverage
 
-# Generate version summary
-sdx-test report --version "baseline-2024-12"
-# Aggregates all scenarios into version-level report
+#### 3. Machine-Readability
+- Check for structured metadata (component properties, variants)
+- Verify token values are accessible programmatically
+- Assess export formats available (JSON, API access)
+- Check for semantic annotations
+- **Score**: 0-100 based on structured data availability
 
-# Compare versions
-sdx-test compare \
-  --baseline "baseline-2024-12" \
-  --current "post-doc-improvements"
-# Shows improvement metrics across versions
+#### 4. Token Completeness
+- Count hardcoded values in components (colors, spacing, typography)
+- Calculate token coverage percentage
+- Identify missing token categories
+- Check for token gaps in common use cases
+- **Score**: 0-100 based on tokenization rate
+
+#### 5. Component Discoverability
+- Check component organization (pages, categories)
+- Verify naming patterns for AI searchability
+- Assess component index/composition
+- Check for component relationships and dependencies
+- **Score**: 0-100 based on organizational clarity
+
+### Implementation
+
+**Data Sources**:
+- Figma API/MCP for component and token extraction
+- Manual analysis of Figma structure (pages, organization)
+- Token system analysis from existing Figma analysis
+
+**Output**: Design Quality Report with scores and findings
+
+---
+
+## 4. Phase B: Design-Code Consistency Assessment
+
+### Objective
+
+Assess how well Figma design components and tokens map to codebase implementations.
+
+### Assessment Steps
+
+#### 1. Check Figma Code References (Primary Method)
+- Use Figma API to check if components have `codeReferences` or similar metadata
+- Extract linked repository URLs, file paths, component names
+- Count: `components_with_code_references / total_components`
+- Verify link validity (check if referenced files exist)
+
+#### 2. Component Mapping Verification
+- For components with code references: verify link validity
+- For components without references: attempt name-based matching
+  - Figma: `Button_primary` → Code: `<sdx-button>` or `Button` component
+  - Use fuzzy matching for variations (e.g., `ButtonPrimary`, `button-primary`)
+- Identify orphaned components:
+  - Design-only: Components in Figma with no code equivalent
+  - Code-only: Components in code with no Figma equivalent
+
+#### 3. Token Mapping Verification
+- Extract tokens from Figma (e.g., `spacing/3`, `color/brand/navy`)
+- Extract tokens from codebase (CSS variables, token files)
+- Map Figma tokens → Code tokens
+- Identify unmapped tokens:
+  - Figma-only: Tokens in design not found in code
+  - Code-only: Tokens in code not found in design
+
+#### 4. Consistency Metrics
+- Component mapping rate: `mapped_components / total_components`
+- Token mapping rate: `mapped_tokens / total_tokens`
+- Orphan detection: count of design-only and code-only items
+- Code reference coverage: `components_with_references / total_components`
+
+### Implementation
+
+**Data Sources**:
+- Figma API for code references and component metadata
+- Git repository analysis for component files and token definitions
+- AST parsing for component exports and token usage
+
+**Output**: Consistency Report with mapping tables and orphan lists
+
+---
+
+## 5. Phase C: Code Implementation Quality Assessment
+
+### Objective
+
+Assess the quality of codebase implementation regarding AI-friendliness and SDX pattern adherence.
+
+### Metrics to Measure
+
+#### 1. Token Usage Patterns
+- Detect hardcoded values vs token usage
+- Calculate token adoption rate in codebase
+- Identify token misuse patterns
+- Check for deprecated token usage
+
+#### 2. Component Architecture
+- Verify component structure follows SDX patterns
+- Check for proper Web Component implementation
+- Assess component composition and reusability
+- Verify component exports and naming
+
+#### 3. Code Documentation
+- Check for JSDoc/TSDoc comments
+- Verify prop/attribute documentation
+- Assess example code quality
+- Check for usage guidelines in code
+
+#### 4. Accessibility Implementation
+- Check ARIA attributes
+- Verify keyboard navigation
+- Assess focus management
+- Check semantic HTML usage
+
+#### 5. Pattern Compliance
+- Verify spacing/layout patterns
+- Check typography usage
+- Assess color system usage
+- Check for pattern violations
+
+### Implementation
+
+**Data Sources**:
+- Git repository code analysis
+- AST parsing for code structure
+- Static analysis for patterns
+
+**Output**: Code Quality Report with scores and findings
+
+---
+
+## 6. Dashboard Requirements
+
+### Web Application
+
+**Technology Stack**:
+- Frontend: React/TypeScript (or similar modern framework)
+- Backend: Node.js/TypeScript API
+- Database: SQLite or JSON files for test run history
+- Export: Markdown and PDF generation libraries
+
+### Dashboard Views
+
+#### 1. Overview Dashboard
+- Overall AI Readiness Score (composite of all phases)
+- Design Quality Score (Phase A)
+- Code Quality Score (Phase C)
+- Design-Code Consistency Score (Phase B)
+- Trend charts showing progress over time
+- Quick stats (total components, tokens, issues found)
+
+#### 2. Design Quality View
+- Breakdown of Phase A metrics
+- Token system analysis visualization
+- Component documentation coverage
+- Machine-readability assessment
+- Prioritized recommendations for design library improvements
+
+#### 3. Consistency View
+- Component mapping visualization (linked vs unlinked)
+- Token mapping table (Figma → Code)
+- Orphan component lists (design-only, code-only)
+- Code reference coverage metrics
+- Prioritized recommendations for linking/mapping improvements
+
+#### 4. Code Quality View
+- Breakdown of Phase C metrics
+- Token usage statistics
+- Component architecture analysis
+- Documentation coverage
+- Prioritized recommendations for code improvements
+
+#### 5. Recommendations View
+- Combined prioritized list (design + code)
+- Impact scoring (High/Medium/Low)
+- Effort estimation
+- Implementation suggestions
+- Expected impact metrics
+
+### Export Functionality
+
+- **Markdown Export**: Full reports in markdown format
+- **PDF Export**: Formatted PDF reports with charts and tables
+- **CSV Export**: Raw metrics data for analysis
+
+---
+
+## 7. Test Run Logging
+
+### Test Run Structure
+
+Each test run captures:
+
+- **Run ID**: Unique identifier (timestamp-based or user-defined)
+- **Date/Time**: When the assessment was run
+- **Data Sources**: 
+  - Figma file version/commit
+  - Git repository commit hash
+  - SDX version (if available)
+- **KPIs**: 
+  - Overall AI Readiness Score
+  - Design Quality Score
+  - Code Quality Score
+  - Consistency Score
+  - Individual metric scores (token consistency, documentation, etc.)
+- **Findings**: Count of issues by category
+- **Recommendations**: Count by priority level
+
+### Test Run History
+
+- View all historical runs in chronological order
+- Compare runs side-by-side
+- Track progress metrics over time
+- Filter by date range, SDX version, or assessment phase
+
+### Progress Tracking
+
+- Visual indicators showing improvement/regression
+- Delta calculations (score changes between runs)
+- Trend analysis (improving, stable, declining)
+- KPI tracking over time
+
+### Test Run Triggers
+
+- **Manual**: CLI command to run assessments
+- **Automatic**: Git webhook or scheduled runs (daily/weekly)
+- **On Change**: Triggered when code or design changes are detected
+
+---
+
+## 8. Advanced Testing Mode
+
+### Prerequisites
+
+Advanced testing is enabled when quality thresholds are met:
+
+- Overall AI Readiness Score ≥ threshold (e.g., 75%)
+- Design Quality Score ≥ threshold (e.g., 70%)
+- Code Quality Score ≥ threshold (e.g., 70%)
+- Consistency Score ≥ threshold (e.g., 80%)
+
+### Advanced Test Flow
+
+```
+1. Select Design from Figma
+   ↓
+2. Generate UI Implementation (using AI)
+   - Provide design + SDX context to AI
+   - Generate code implementation
+   ↓
+3. Compare Generated UI vs Human Implementation
+   - Visual comparison (screenshot diff)
+   - Code comparison (token usage, component usage)
+   - Functional comparison (accessibility, behavior)
+   ↓
+4. Generate Gap Report
+   - Similar to original concept's gap reports
+   - Focus on AI generation quality
+   - Track AI generation scores over time
 ```
 
-### Code Analyzer Implementation
+### Implementation Notes
 
-**Technology**: Node.js / TypeScript
-
-**Key Modules**:
-1. **Parser**: AST parsing for JavaScript/TypeScript/HTML/CSS
-2. **Token Detector**: Regex + AST patterns for token usage
-3. **Component Detector**: Import analysis + tag detection
-4. **Pattern Validator**: Rule-based pattern matching
-5. **A11y Checker**: ARIA attribute validation
-6. **Scorer**: Weighted scoring algorithm
-
-**Example Detection Logic**:
-```typescript
-interface Finding {
-  category: 'token-misuse' | 'component-reinvention' | 'pattern-violation' | 'a11y-gap' | 'architecture-mismatch';
-  severity: 'critical' | 'high' | 'medium' | 'low';
-  location: {
-    file: string;
-    line: number;
-    column: number;
-  };
-  found: string;
-  expected: string;
-  impact: string;
-  recommendation: string;
-}
-
-async function analyzeCode(scenarioPath: string): Promise<Finding[]> {
-  const findings: Finding[] = [];
-  
-  // Load AI-generated code
-  const generatedCode = await loadGeneratedCode(scenarioPath);
-  
-  // Load SDX reference (tokens, components)
-  const sdxReference = await loadSDXReference();
-  
-  // Run detection rules
-  findings.push(...detectTokenMisuse(generatedCode, sdxReference));
-  findings.push(...detectComponentReinvention(generatedCode, sdxReference));
-  findings.push(...detectPatternViolations(generatedCode, sdxReference));
-  findings.push(...detectA11yGaps(generatedCode));
-  findings.push(...detectArchitectureMismatches(generatedCode, sdxReference));
-  
-  return findings;
-}
-```
+- Uses existing codebase implementations as "ground truth"
+- Compares AI-generated code against human-written reference implementations
+- Generates detailed gap reports for AI generation quality
+- Tracks AI generation scores over time
+- Only enabled once design and code quality are sufficient
 
 ---
 
-## 8. Implementation Phases
+## 9. Implementation Plan
 
-### Phase 0: Setup (Week 1)
-- [x] Create memory bank
-- [x] Define tool concept
-- [ ] Get stakeholder approval
-- [ ] Access SDX repository
-- [ ] Define Figma data export format/schema (structured JSON with tokens, components, specs)
-- [ ] Create tooling to extract structured data from Figma (via MCP or manual export)
-- [ ] Document file format specification
-- [ ] Extract token definitions
-- [ ] Analyze component structure
+### Phase 1: Foundation (Weeks 1-2)
+- [ ] Set up project structure (TypeScript, React dashboard, Node.js backend)
+- [ ] Implement Figma API/MCP integration for Phase A
+- [ ] Build basic design quality assessment (token analysis)
+- [ ] Create initial dashboard structure (web app setup)
 
-### Phase 1: Foundation Testing (Week 2-3)
-- [ ] Build code analyzer (token detection)
-- [ ] Create 3-5 token-focused test scenarios
-- [ ] Run baseline tests
-- [ ] Generate first gap reports
-- [ ] Present findings to SDX team
+### Phase 2: Consistency Assessment (Weeks 3-4)
+- [ ] Implement Figma code reference checking
+- [ ] Build component mapping logic (name-based + code reference)
+- [ ] Implement token mapping verification
+- [ ] Add consistency metrics to dashboard
 
-### Phase 2: Component Testing (Week 4-5)
-- [ ] Enhance analyzer (component detection)
-- [ ] Create 5-10 component-focused scenarios
-- [ ] Run component tests
-- [ ] Generate component gap reports
-- [ ] Iterate on recommendations
+### Phase 3: Code Quality Assessment (Weeks 5-6)
+- [ ] Implement code repository analysis
+- [ ] Build AST parsing for token/component detection
+- [ ] Create code quality metrics
+- [ ] Integrate into dashboard
 
-### Phase 3: Complete System Testing (Week 6-7)
-- [ ] Full analyzer implementation
-- [ ] Create complex UI scenarios (myswisscom pages)
-- [ ] Run comprehensive tests
-- [ ] Generate complete gap reports
-- [ ] Present comprehensive findings
+### Phase 4: Dashboard & Logging (Weeks 7-8)
+- [ ] Complete dashboard UI with all views
+- [ ] Implement test run logging system
+- [ ] Add export functionality (Markdown, PDF)
+- [ ] Build progress tracking and comparison features
 
-### Phase 4: Iteration & Measurement (Week 8+)
-- [ ] SDX team implements improvements
-- [ ] Run Version 2 tests
-- [ ] Generate comparison report
-- [ ] Measure improvement
-- [ ] Refine testing approach
+### Phase 5: Advanced Testing (Weeks 9-10)
+- [ ] Implement advanced testing mode
+- [ ] Build AI generation comparison logic
+- [ ] Create gap report generation for AI tests
+- [ ] Integrate into dashboard
 
 ---
 
-## 9. Success Metrics
+## 10. Success Criteria
 
-### Tool Quality Metrics
-- **Accuracy**: % of automated findings validated as true positives in manual review
-- **Coverage**: % of actual gaps detected by automation
-- **Actionability**: % of recommendations implemented by SDX team
-- **Reproducibility**: Ability to re-run tests with consistent results
-
-### SDX Improvement Metrics
-- **Token Usage Rate**: % of generated code using tokens (target: 90%+)
-- **Component Discovery Rate**: % of scenarios using SDX components (target: 85%+)
-- **Pattern Compliance**: % adherence to documented patterns (target: 80%+)
-- **Accessibility Score**: % of a11y checks passed (target: 95%+)
-- **Overall Readiness Score**: Composite score (target: 85%+)
-
-### Version Comparison Metrics
-```
-Baseline → Post-Improvements
-
-Token Usage:        45% → 85% (+89% improvement)
-Component Discovery: 60% → 90% (+50% improvement)
-Pattern Compliance: 50% → 80% (+60% improvement)
-Accessibility:      40% → 95% (+137% improvement)
-Overall:           50% → 85% (+70% improvement)
-```
+1. **Assessment Completeness**: All three phases produce actionable metrics
+2. **Dashboard Usability**: Clear visualization of scores and recommendations
+3. **Recommendation Quality**: Prioritized, impact-scored suggestions
+4. **Progress Tracking**: Test run history enables improvement measurement
+5. **Advanced Testing**: Once quality thresholds met, AI generation testing works
 
 ---
 
-## 10. Future Enhancements
+## 11. Key Files Structure
 
-### Near Term (3-6 months)
-- **Multiple AI Tools**: Test against GitHub Copilot, Claude Code, etc.
-- **Visual Regression**: Automated screenshot comparison
-- **CI/CD Integration**: Run tests automatically on SDX updates
-- **Dashboard**: Visual tracking of metrics over time
+### New Files to Create
+- `src/assessments/design-quality.ts` - Phase A assessment logic
+- `src/assessments/consistency.ts` - Phase B assessment logic  
+- `src/assessments/code-quality.ts` - Phase C assessment logic
+- `src/dashboard/` - Web application frontend
+- `src/api/` - Backend API for dashboard
+- `src/export/` - Markdown and PDF export logic
+- `src/test-runs/` - Test run logging and history management
+- `src/advanced-testing/` - Advanced AI generation testing
 
-### Long Term (6-12 months)
-- **MCP Server Integration**: Optional tool for exploration and one-time data extraction (not used during test execution - all scenarios use file-based data)
-- **Design Token API**: Machine-readable token definitions
-- **Component Discovery Service**: API for AI to query available components
-- **Pattern Library**: Machine-readable constraints and rules
-- **Auto-fix Suggestions**: Generate code patches for common gaps
-
-### Research Areas
-- **Prompt Engineering**: Optimize prompts for better AI output
-- **Context Optimization**: What context helps AI the most?
-- **Documentation Structure**: How should docs be organized for AI?
-- **Semantic Annotations**: Markup to help AI understand intent
+### Modified Files
+- `TOOL_CONCEPT.md` - This document (refined concept)
+- `memory-bank/activeContext.md` - Update with new approach
+- `memory-bank/systemPatterns.md` - Document new architecture
 
 ---
 
-## 11. Risk Mitigation
+## 12. Open Questions
 
-### Technical Risks
-
-**Risk**: Automated detection has too many false positives
-- **Mitigation**: Tune rules iteratively, focus on high-confidence patterns
-- **Fallback**: Increase manual review, treat automation as suggestions
-
-**Risk**: Test scenarios too simple/complex
-- **Mitigation**: Phased approach with increasing complexity
-- **Fallback**: Adjust difficulty based on early results
-
-**Risk**: AI behavior inconsistent across runs
-- **Mitigation**: Version control prompts, test multiple times
-- **Fallback**: Focus on patterns rather than individual instances
-
-### Process Risks
-
-**Risk**: SDX team doesn't have bandwidth for improvements
-- **Mitigation**: Prioritize recommendations, start with quick wins
-- **Fallback**: Focus on documentation improvements (low effort)
-
-**Risk**: Tool maintenance burden too high
-- **Mitigation**: Keep tooling simple, leverage existing libraries
-- **Fallback**: Manual review with structured checklists
-
-**Risk**: Results not representative of real usage
-- **Mitigation**: Use real Swisscom product pages as test cases
-- **Fallback**: Interview developers about real pain points
+1. What are the quality thresholds for enabling advanced testing?
+2. How should we handle partial assessments (e.g., only design available)?
+3. Should the dashboard support real-time updates or batch processing?
+4. What authentication/access control is needed for the dashboard?
+5. How should we handle multiple SDX versions in the same dashboard?
 
 ---
 
-## 12. Open Questions for Discussion
-
-1. **Scope**: Should we test only web components, or also legacy components?
-
-2. **Prioritization**: Which component categories are most critical? (buttons, forms, navigation, etc.)
-
-3. **Baseline**: What's the minimum acceptable AI readiness score?
-
-4. **Cadence**: How often should we run full test suites? (monthly, quarterly, on major releases?)
-
-5. **Ownership**: Who will maintain the testing tool long-term?
-
-6. **Integration**: Should this be integrated with existing SDX tooling/pipelines?
-
-7. **Public/Private**: Should test results be public or internal only?
-
-8. **Standards**: Are there industry benchmarks we should align with?
-
----
-
-## 13. Next Steps
-
-1. **Review & Feedback**: You review this concept and provide feedback
-2. **Refinement**: Adjust approach based on your input
-3. **Approval**: Get green light to proceed with implementation
-4. **Repository Access**: Obtain and analyze SDX repository
-5. **Prototype**: Build first version of code analyzer
-6. **Pilot Test**: Run 1-2 test scenarios manually
-7. **Iterate**: Refine based on pilot learnings
-8. **Scale**: Roll out full Phase 1 testing
-
----
-
-## Appendix A: Related Work
-
-### Industry Examples
-- **Shopify Polaris**: Documentation with code snippets for AI consumption
-- **Material Design**: Machine-readable design tokens
-- **Radix UI**: Accessible component primitives with clear APIs
-
-### Research
-- "Design Systems for AI" (Nielsen Norman Group)
-- "Machine-Readable Design Systems" (Figma Blog)
-- "Documentation for AI Assistants" (GitHub Research)
-
----
-
-## Appendix B: Glossary
-
-- **Design Token**: Named variable representing a design decision (e.g., `--color-primary`)
-- **Component Reinvention**: Creating custom implementation instead of using design system component
-- **Pattern Violation**: Code that works but doesn't follow documented best practices
-- **AI Readiness**: How well a design system can be understood and applied by AI assistants
-- **Three-Way Comparison**: Comparing Figma design, existing code, and AI-generated code
-- **Gap Report**: Document identifying differences between expected and actual AI behavior
-- **Named Version**: User-defined label for a test run (e.g., "baseline-2024-12")
-
----
-
-**Document Version**: 1.0  
+**Document Version**: 2.0 (Refined)  
 **Last Updated**: December 3, 2024  
 **Author**: Larsen (with AI assistance)  
-**Status**: Draft - Awaiting Review
-
+**Status**: Refined - Ready for Implementation
