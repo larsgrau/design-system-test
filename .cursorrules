@@ -1,0 +1,104 @@
+# SDX AI Readiness Testing - Project Rules
+
+## Project Context
+
+This is an AI testing tool project to evaluate how well AI coding assistants understand and apply the SDX (Swisscom Design System). We analyze Figma designs, compare with real code, and test AI-generated implementations.
+
+## Critical Findings
+
+**3 token systems co-exist** in SDX Figma without clear documentation:
+1. Primary: `spacing/3`, `fontSize/heading/M` (most common)
+2. SDX-Prefixed: `sdx/font/size/h2` (alternative)
+3. Legacy: `space_old/baseline/2` (deprecated)
+
+**Impact**: 60-95% AI failure rate on token consistency predicted.
+
+## Token Usage Rules (UNVERIFIED - Awaiting GitHub confirmation)
+
+When generating SDX-related code:
+
+### ✅ Use Primary System
+```
+spacing/3, padding/4
+fontSize/heading/M, lineHeight/heading/M
+surface/ui/01, textColor/body
+borderRadius/large
+```
+
+### ❌ Avoid Alternative Systems
+```
+sdx/font/size/h2 (until verified in code)
+space_old/baseline/2 (legacy)
+```
+
+### CSS Variables (Assumed)
+```
+Token: spacing/3
+CSS: var(--spacing-3) or var(--sdx-spacing-3)
+```
+
+**⚠️ VERIFY WITH GITHUB BEFORE USING IN PRODUCTION CODE**
+
+## Key Documents
+
+**START HERE**:
+- `FIGMA_ANALYSIS_SUMMARY.md` - Executive summary of findings
+- `TOKEN_SYSTEM_GUIDE.md` - Token reference for testing
+
+**For SDX Team**:
+- `TOKEN_DOCUMENTATION_REQUIREMENTS.md` - Documentation recommendations
+
+**Detailed Analysis**:
+- `analysis/complete-figma-analysis.md` - Full findings (400+ lines)
+- `analysis/PAGE_INVENTORY.md` - Page breakdown
+
+## Current Status
+
+- ✅ Figma analysis COMPLETE (10 pages, 80+ tokens, 50+ components)
+- ⏳ Awaiting GitHub repository access
+- 🎯 Next: Verify tokens in code, create test scenarios
+
+## Important Notes
+
+1. **Token names are from Figma** - may transform in code
+2. **CSS variable naming unconfirmed** - needs GitHub verification
+3. **Component naming unclear** - `Card_default` → `<sdx-card>`?
+4. **Three systems found** - unclear which is "current"
+5. **Typography has 2 complete parallel systems** - major issue
+
+## Testing Approach
+
+Three-way comparison:
+- Figma Design (source of truth for design)
+- Existing Code (ground truth for implementation)
+- AI Generated (test subject)
+→ Gap Analysis
+
+## Memory Bank
+
+Project uses memory bank pattern for AI context:
+- `memory-bank/projectbrief.md` - Goals & scope
+- `memory-bank/techContext.md` - Technical details (UPDATED with token info)
+- `memory-bank/activeContext.md` - Current work
+- `memory-bank/progress.md` - What's done/next
+
+Read memory bank files before making changes to stay aligned with project context.
+
+## Workflow Preferences
+
+- Create comprehensive documentation (this project is about analysis)
+- Be systematic in analysis (we analyzed 10 pages methodically)
+- Document findings thoroughly (5 analysis docs created)
+- Include statistics and metrics (we track tokens, components, issues)
+- Create actionable recommendations with priority levels
+- Use version control for test scenarios
+
+## Code Style
+
+- TypeScript preferred for tooling
+- Markdown for documentation and reports
+- Clear file naming (e.g., `complete-figma-analysis.md`, `PAGE_INVENTORY.md`)
+- Add summary sections to long documents
+- Use tables for data comparison
+- Include severity indicators (🚨 high, ⚠️ medium, ℹ️ low)
+
