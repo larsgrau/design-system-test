@@ -247,3 +247,8 @@ The Figma MCP server (`mcp_Figma_Desktop_get_metadata`) does not provide:
 
 
 
+
+
+
+
+
