@@ -191,16 +191,16 @@ Based on our analysis, here's how AI will perform with current SDX:
 
 **Start Here**:
 - **This file** - Executive summary (you are here)
-- [PAGE_INVENTORY.md](./analysis/PAGE_INVENTORY.md) - Page-by-page breakdown
+- [pages-list.md](./pages-list.md) - Complete page list with analysis details
 
 **Detailed Analysis**:
-- [complete-figma-analysis.md](./analysis/complete-figma-analysis.md) - Complete findings (detailed, 400+ lines)
-- [comprehensive-token-inventory.md](./analysis/comprehensive-token-inventory.md) - Token analysis with examples
-- [figma-exploration-log.md](./analysis/figma-exploration-log.md) - Process log
+- [complete-analysis.md](./complete-analysis.md) - Complete findings (detailed, 400+ lines)
+- [token-inventory.md](./token-inventory.md) - Token analysis with examples
+- [exploration-log.md](./exploration-log.md) - Process log
 
 **Memory Bank**:
-- [memory-bank/figma-analysis.md](./memory-bank/figma-analysis.md) - Summary for AI context
-- [memory-bank/activeContext.md](./memory-bank/activeContext.md) - Current work status
+- [../../memory-bank/figma-analysis.md](../../memory-bank/figma-analysis.md) - Summary for AI context
+- [../../memory-bank/activeContext.md](../../memory-bank/activeContext.md) - Current work status
 
 ---
 
@@ -253,5 +253,5 @@ Based on our analysis, here's how AI will perform with current SDX:
 
 - [SDX Documentation](https://sdx.swisscom.com/)
 - [Figma File](https://www.figma.com/design/fJcQzJgf6IRQQxz9A6DwHt/SDX-Components)
-- [Project README](./README.md)
-- [Tool Concept](./TOOL_CONCEPT.md)
+- [Project README](../../README.md)
+- [Tool Concept](../../tool_concept.md)

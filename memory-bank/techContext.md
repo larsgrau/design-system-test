@@ -224,7 +224,7 @@ sdx/border/radius-medium: 8px (only in SDX system)
 
 ### Recommendations for SDX Team
 
-See [TOKEN_DOCUMENTATION_REQUIREMENTS.md](../TOKEN_DOCUMENTATION_REQUIREMENTS.md) for detailed recommendations on documenting the token system.
+See [token_documentation_requirements.md](../docs/guides/token_documentation_requirements.md) for detailed recommendations on documenting the token system.
 
 ## Available Resources
 

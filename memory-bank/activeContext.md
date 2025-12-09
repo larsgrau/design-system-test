@@ -1,8 +1,8 @@
 # Active Context
 
 ## Current Status
-**Phase**: Figma analysis COMPLETE - Documentation consolidated - Ready for GitHub verification
-**Date**: December 3, 2024
+**Phase**: Figma analysis COMPLETE - Project reorganized - Ready for GitHub verification
+**Date**: December 9, 2024
 
 ## What We've Completed
 1. Memory bank documentation ✅
@@ -17,10 +17,11 @@
 
 ## What's Next
 5. ⏳ **Awaiting GitHub repository access** for code verification
-6. 📋 **Complete analysis summary created** (COMPLETE_ANALYSIS_SUMMARY.md)
-7. 📋 **GitHub verification plan created** (GITHUB_VERIFICATION_PLAN.md)
-8. Token naming verification (Figma → CSS variables) - pending repo access
-9. Component naming mapping (Figma → Web Components) - pending repo access
+6. 📋 **Executive analysis summary created** (design-systems/sdx/analysis/summary.md)
+7. 📋 **GitHub verification plan created** (docs/plans/github_verification_plan.md)
+8. ✅ **Project structure reorganized** (December 9, 2024) - Clear separation of tool docs vs. design-system-specific files
+9. Token naming verification (Figma → CSS variables) - pending repo access
+10. Component naming mapping (Figma → Web Components) - pending repo access
 
 ## Recent Discoveries
 
@@ -139,15 +140,14 @@ Systematically analyzed **10 priority pages** via Figma MCP server.
 ### Files Generated
 
 **Analysis Documents**:
-1. [complete-figma-analysis.md](../analysis/complete-figma-analysis.md) - Complete findings (detailed)
-2. [PAGE_INVENTORY.md](../analysis/PAGE_INVENTORY.md) - Page-by-page breakdown
-3. [comprehensive-token-inventory.md](../analysis/comprehensive-token-inventory.md) - Initial token analysis
-4. [figma-exploration-log.md](../analysis/figma-exploration-log.md) - Process log
+1. [complete-analysis.md](../design-systems/sdx/analysis/complete-analysis.md) - Complete findings (detailed)
+2. [pages-list.md](../design-systems/sdx/analysis/pages-list.md) - Complete page list with analysis details
+3. [token-inventory.md](../design-systems/sdx/analysis/token-inventory.md) - Initial token analysis
+4. [exploration-log.md](../design-systems/sdx/analysis/exploration-log.md) - Process log
 
 **Summary Documents**:
-5. [FIGMA_ANALYSIS_SUMMARY.md](../FIGMA_ANALYSIS_SUMMARY.md) - Executive summary (START HERE)
-6. [COMPLETE_ANALYSIS_SUMMARY.md](../COMPLETE_ANALYSIS_SUMMARY.md) - Complete consolidated summary (NEW)
-7. [GITHUB_VERIFICATION_PLAN.md](../GITHUB_VERIFICATION_PLAN.md) - GitHub verification plan (NEW)
+5. [summary.md](../design-systems/sdx/analysis/summary.md) - Executive summary (START HERE)
+6. [github_verification_plan.md](../docs/plans/github_verification_plan.md) - GitHub verification plan
 
 ## Recent Decisions
 

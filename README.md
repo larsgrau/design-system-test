@@ -5,17 +5,19 @@ A systematic testing tool to evaluate and improve how well AI coding assistants 
 ## Quick Links
 
 ### Documentation
-- **[Tool Concept](./TOOL_CONCEPT.md)** - Comprehensive concept document
-- **[Figma Analysis Summary](./FIGMA_ANALYSIS_SUMMARY.md)** - ⭐ **READ THIS!** Key findings from Figma analysis
+- **[Tool Concept](./tool_concept.md)** - Comprehensive concept document
+- **[SDX Analysis Summary](./design-systems/sdx/analysis/summary.md)** - ⭐ **READ THIS!** Key findings from Figma analysis
 
 ### Token Documentation Package
-- **[Token Documentation Complete](./TOKEN_DOCUMENTATION_COMPLETE.md)** - 📦 **OVERVIEW** - What we created
-- **[Token System Guide](./TOKEN_SYSTEM_GUIDE.md)** - 📋 **FOR TESTING** - Token reference for AI code generation
-- **[Token Documentation Requirements](./TOKEN_DOCUMENTATION_REQUIREMENTS.md)** - 📝 **FOR SDX TEAM** - Documentation recommendations
+- **[Token Documentation Complete](./design-systems/sdx/documentation/token-documentation-complete.md)** - 📦 **OVERVIEW** - What we created
+- **[Token System Guide](./design-systems/sdx/documentation/token-system-guide.md)** - 📋 **FOR TESTING** - Token reference for AI code generation
+- **[Token Documentation Requirements](./docs/guides/token_documentation_requirements.md)** - 📝 **FOR SDX TEAM** - Documentation recommendations
 
 ### Additional Resources
 - **[Memory Bank](./memory-bank/)** - Project documentation and context
-- **[Analysis Documents](./analysis/)** - Detailed Figma analysis
+- **[SDX Analysis Documents](./design-systems/sdx/analysis/)** - Detailed Figma analysis
+- **[Setup Guides](./docs/setup/)** - Setup and configuration
+- **[Plans](./docs/plans/)** - Verification and implementation plans
 
 ### SDX Resources
 - **[SDX Documentation](https://sdx.swisscom.com)** - Official SDX docs
@@ -62,26 +64,38 @@ Figma Design → Expected Implementation
 ```
 design-system-test/
 ├── README.md                            # This file
-├── TOOL_CONCEPT.md                      # Detailed tool concept
-├── FIGMA_ANALYSIS_SUMMARY.md            # ⭐ Figma analysis executive summary (START HERE)
-├── memory-bank/                         # Project documentation
+├── tool_concept.md                      # Generic tool concept (reusable)
+├── memory-bank/                         # Project context (tool-specific)
 │   ├── projectbrief.md                  # Project goals and scope
 │   ├── productContext.md                # Why this tool exists
-│   ├── techContext.md                   # SDX technical details
+│   ├── techContext.md                   # Technical details
 │   ├── systemPatterns.md                # Testing methodology
 │   ├── activeContext.md                 # Current work focus
 │   ├── progress.md                      # What's done/todo
 │   └── figma-analysis.md                # Figma analysis summary
-├── analysis/                            # Analysis artifacts
-│   ├── complete-figma-analysis.md       # ⭐ Complete detailed findings (400+ lines)
-│   ├── PAGE_INVENTORY.md                # Page-by-page breakdown
-│   ├── comprehensive-token-inventory.md # Token analysis with examples
-│   └── figma-exploration-log.md         # Process log
-└── test-scenarios/                      # Test runs (to be created)
-    └── versions/
-        ├── baseline-2024-12/
-        ├── post-doc-improvements/
-        └── ...
+├── docs/                                 # Generic tool documentation
+│   ├── setup/
+│   │   └── figma_mcp_setup.md           # Setup instructions
+│   ├── plans/
+│   │   └── github_verification_plan.md  # Verification methodology
+│   └── guides/
+│       └── token_documentation_requirements.md
+├── design-systems/                       # Design system-specific analysis
+│   └── sdx/                              # SDX Design System
+│       ├── README.md                     # SDX-specific overview
+│       ├── analysis/                     # Analysis artifacts
+│       │   ├── summary.md                # Executive summary
+│       │   ├── complete-analysis.md      # Detailed analysis
+│       │   ├── pages-list.md             # Page inventory
+│       │   ├── token-inventory.md        # Token inventory
+│       │   └── exploration-log.md        # Process log
+│       ├── documentation/                # Generated documentation
+│       │   ├── token-documentation-complete.md
+│       │   └── token-system-guide.md     # SDX-specific token guide
+│       ├── reports/                      # Reports and summaries
+│       │   └── management-summary.md    # Project status
+│       └── test-runs/                    # Test run results (future)
+└── test-scenarios/                       # Reusable test scenarios (future)
 ```
 
 ## Current Status
@@ -112,7 +126,7 @@ design-system-test/
 - **Legacy tokens still active** in current components
 - **AI predicted failure rates**: 60-95% on token consistency
 
-**➡️ [Read the Executive Summary](./FIGMA_ANALYSIS_SUMMARY.md)** ⭐
+**➡️ [Read the Executive Summary](./design-systems/sdx/analysis/summary.md)** ⭐
 
 ### Next Steps ⏭️
 - [ ] ⏳ **Access SDX GitHub repository** (read-only request pending)
@@ -139,7 +153,7 @@ design-system-test/
 
 ## Questions or Feedback?
 
-This is a draft concept. Please review the [TOOL_CONCEPT.md](./TOOL_CONCEPT.md) document and provide feedback on:
+This is a draft concept. Please review the [tool_concept.md](./tool_concept.md) document and provide feedback on:
 
 1. Testing approach and methodology
 2. Gap detection categories and priorities

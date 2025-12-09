@@ -133,7 +133,7 @@ Found 2 composite typography tokens that reference multiple individual tokens:
 ---
 
 ## Complete Analysis
-See [comprehensive-token-inventory.md](./comprehensive-token-inventory.md) for:
+See [token-inventory.md](./token-inventory.md) for:
 - Complete token list with values
 - Token pattern analysis
 - Component-by-component comparison

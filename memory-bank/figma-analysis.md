@@ -216,8 +216,8 @@ We've only seen the Cards page. Need to explore:
 - **8 consistency issues** found
 
 ### Key Files Generated
-1. **[figma-exploration-log.md](../analysis/figma-exploration-log.md)** - Systematic exploration process
-2. **[comprehensive-token-inventory.md](../analysis/comprehensive-token-inventory.md)** - Complete token analysis (detailed)
+1. **[exploration-log.md](../design-systems/sdx/analysis/exploration-log.md)** - Systematic exploration process
+2. **[token-inventory.md](../design-systems/sdx/analysis/token-inventory.md)** - Complete token analysis (detailed)
 
 ### Major Findings
 

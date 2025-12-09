@@ -522,7 +522,7 @@ Advanced testing is enabled when quality thresholds are met:
 - `components/{ComponentName}.md` - Individual component documentation files
 
 ### Modified Files
-- `TOOL_CONCEPT.md` - This document (refined concept)
+- `tool_concept.md` - This document (refined concept)
 - `memory-bank/activeContext.md` - Update with new approach
 - `memory-bank/systemPatterns.md` - Document new architecture
 

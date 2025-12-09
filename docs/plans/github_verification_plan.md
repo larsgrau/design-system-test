@@ -200,7 +200,7 @@ sdx-repository/
 - [ ] Token-Mapping-Tabelle erstellen
 - [ ] Component-Mapping-Tabelle erstellen
 - [ ] Empfehlungen aktualisieren
-- [ ] TOKEN_SYSTEM_GUIDE.md aktualisieren
+- [ ] token_system_guide.md aktualisieren
 
 ---
 
@@ -318,7 +318,7 @@ sdx-repository/
 
 ## Nächste Schritte Nach Verifikation
 
-1. **TOKEN_SYSTEM_GUIDE.md aktualisieren**:
+1. **token_system_guide.md aktualisieren**:
    - Verifizierte Token-Namen
    - Bestätigte CSS-Variable-Namen
    - Code-basierte Empfehlungen

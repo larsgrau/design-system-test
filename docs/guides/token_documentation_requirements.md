@@ -717,8 +717,8 @@ This document is based on our analysis. We'd love feedback from the SDX team:
 
 **Project**: SDX AI Readiness Testing  
 **Documents**: 
-- [FIGMA_ANALYSIS_SUMMARY.md](./FIGMA_ANALYSIS_SUMMARY.md)
-- [analysis/complete-figma-analysis.md](./analysis/complete-figma-analysis.md)
+- [../../design-systems/sdx/analysis/summary.md](../../design-systems/sdx/analysis/summary.md)
+- [../../design-systems/sdx/analysis/complete-analysis.md](../../design-systems/sdx/analysis/complete-analysis.md)
 
 ---
 

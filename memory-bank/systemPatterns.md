@@ -48,7 +48,7 @@ test-scenarios/
       ai-generated/
         code/                     # AI's implementation
         metadata.json             # Generation context (AI version, date, etc.)
-      analysis/
+      design-systems/sdx/analysis/
         automated-findings.json   # Automated detection results
         manual-review.md          # Human reviewer notes
       report/

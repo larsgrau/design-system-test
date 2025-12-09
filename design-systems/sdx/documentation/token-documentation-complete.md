@@ -9,7 +9,7 @@
 
 ### 1. **Internal Testing Guide** ✅
 
-**File**: [TOKEN_SYSTEM_GUIDE.md](./TOKEN_SYSTEM_GUIDE.md)  
+**File**: [token-system-guide.md](./token-system-guide.md)  
 **For**: Our AI testing project  
 **Status**: ⚠️ UNVERIFIED - Based on Figma analysis only
 
@@ -31,7 +31,7 @@
 
 ### 2. **SDX Team Recommendations** ✅
 
-**File**: [TOKEN_DOCUMENTATION_REQUIREMENTS.md](./TOKEN_DOCUMENTATION_REQUIREMENTS.md)  
+**File**: [../../docs/guides/token_documentation_requirements.md](../../docs/guides/token_documentation_requirements.md)  
 **For**: SDX business owner & core team  
 **Status**: Ready for review
 
@@ -109,10 +109,10 @@
 ### Where Primary Token System **IS** Documented
 
 #### In Our Project ✅
-1. **[TOKEN_SYSTEM_GUIDE.md](./TOKEN_SYSTEM_GUIDE.md)** - Testing reference
-2. **[memory-bank/techContext.md](./memory-bank/techContext.md)** - Technical context
-3. **[.cursorrules](./.cursorrules)** - AI assistant rules
-4. **[analysis/complete-figma-analysis.md](./analysis/complete-figma-analysis.md)** - Full analysis
+1. **[token-system-guide.md](./token-system-guide.md)** - Testing reference
+2. **[../../memory-bank/techContext.md](../../memory-bank/techContext.md)** - Technical context
+3. **[../../.cursorrules](../../.cursorrules)** - AI assistant rules
+4. **[../analysis/complete-analysis.md](../analysis/complete-analysis.md)** - Full analysis
 
 #### In SDX (Recommended) ⏳
 5. **Getting Started Guide** - Basic token documentation (TO BE ADDED)
@@ -123,7 +123,7 @@
 
 ### Where Primary Token System **SHOULD BE** Documented (SDX)
 
-Based on our recommendations in `TOKEN_DOCUMENTATION_REQUIREMENTS.md`:
+Based on our recommendations in `../../docs/guides/token_documentation_requirements.md`:
 
 #### Minimum Viable Documentation (Phase 1)
 1. ✅ **SDX Getting Started** → Add "Design Tokens" section
@@ -160,11 +160,11 @@ Based on our recommendations in `TOKEN_DOCUMENTATION_REQUIREMENTS.md`:
 1. ✅ Token documentation created
 2. ⏳ **Wait for GitHub repository access**
 3. Verify token names in actual code
-4. Update `TOKEN_SYSTEM_GUIDE.md` with verified info
+4. Update `token-system-guide.md` with verified info
 5. Remove "UNVERIFIED" warnings once confirmed
 
 ### For SDX Team (Recommendations)
-1. Review `TOKEN_DOCUMENTATION_REQUIREMENTS.md`
+1. Review `../../docs/guides/token_documentation_requirements.md`
 2. Prioritize documentation phases
 3. Implement Phase 1 (immediate documentation)
 4. Plan Phase 2 (token system cleanup)
@@ -208,35 +208,35 @@ Based on our recommendations in `TOKEN_DOCUMENTATION_REQUIREMENTS.md`:
 ## 📁 Related Documents
 
 **Start Here**:
-- [FIGMA_ANALYSIS_SUMMARY.md](./FIGMA_ANALYSIS_SUMMARY.md) - Executive summary
+- [../analysis/summary.md](../analysis/summary.md) - Executive summary
 
 **For Testing**:
-- [TOKEN_SYSTEM_GUIDE.md](./TOKEN_SYSTEM_GUIDE.md) - Token reference (this is for you!)
+- [token-system-guide.md](./token-system-guide.md) - Token reference (this is for you!)
 
 **For SDX Team**:
-- [TOKEN_DOCUMENTATION_REQUIREMENTS.md](./TOKEN_DOCUMENTATION_REQUIREMENTS.md) - Recommendations
+- [../../docs/guides/token_documentation_requirements.md](../../docs/guides/token_documentation_requirements.md) - Recommendations
 
 **Detailed Analysis**:
-- [analysis/complete-figma-analysis.md](./analysis/complete-figma-analysis.md) - Full findings
-- [analysis/PAGE_INVENTORY.md](./analysis/PAGE_INVENTORY.md) - Page breakdown
+- [../analysis/complete-analysis.md](../analysis/complete-analysis.md) - Full findings
+- [../analysis/pages-list.md](../analysis/pages-list.md) - Complete page list with analysis details
 
 **Memory Bank**:
-- [memory-bank/techContext.md](./memory-bank/techContext.md) - Technical context
-- [memory-bank/activeContext.md](./memory-bank/activeContext.md) - Current work
+- [../../memory-bank/techContext.md](../../memory-bank/techContext.md) - Technical context
+- [../../memory-bank/activeContext.md](../../memory-bank/activeContext.md) - Current work
 
 ---
 
 ## ✅ Checklist: Token Documentation Complete
 
-- [x] Created internal testing guide (TOKEN_SYSTEM_GUIDE.md)
-- [x] Created SDX team recommendations (TOKEN_DOCUMENTATION_REQUIREMENTS.md)
+- [x] Created internal testing guide (token-system-guide.md)
+- [x] Created SDX team recommendations (token_documentation_requirements.md)
 - [x] Updated technical context (memory-bank/techContext.md)
 - [x] Updated project rules (.cursorrules)
 - [x] Updated README with new document links
 - [x] Created this summary document
 - [ ] Verify tokens with GitHub repository (pending access)
-- [ ] Update TOKEN_SYSTEM_GUIDE with verified info
-- [ ] Present TOKEN_DOCUMENTATION_REQUIREMENTS to SDX team
+- [ ] Update token-system-guide.md with verified info
+- [ ] Present token_documentation_requirements.md to SDX team
 
 ---
 

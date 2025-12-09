@@ -842,10 +842,10 @@ Recommendation: Consolidate to borderColor/neutral/02
 
 ## Files Generated in This Analysis
 
-1. **[complete-figma-analysis.md](./complete-figma-analysis.md)** (this file) - Complete findings
-2. **[figma-exploration-log.md](./figma-exploration-log.md)** - Process log
-3. **[comprehensive-token-inventory.md](./comprehensive-token-inventory.md)** - Initial 48-token analysis
-4. **[../memory-bank/figma-analysis.md](../memory-bank/figma-analysis.md)** - Memory bank entry
+1. **[complete-analysis.md](./complete-analysis.md)** (this file) - Complete findings
+2. **[exploration-log.md](./exploration-log.md)** - Process log
+3. **[token-inventory.md](./token-inventory.md)** - Initial 48-token analysis
+4. **[../../memory-bank/figma-analysis.md](../../memory-bank/figma-analysis.md)** - Memory bank entry
 
 ---
 
