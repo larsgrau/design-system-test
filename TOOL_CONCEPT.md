@@ -1,8 +1,8 @@
-# SDX AI Readiness Testing Tool - Refined Concept Document
+# Design System AI Readiness Testing Tool - Refined Concept Document
 
 ## Executive Summary
 
-This document outlines a comprehensive testing tool that evaluates SDX's AI readiness through three sequential assessments: (a) design library quality for AI consumption, (b) consistency between Figma design and codebase, and (c) code implementation quality. Results are displayed in a web dashboard with prioritized recommendations, and test runs are logged with KPIs for tracking progress over time.
+This document outlines a comprehensive testing tool that evaluates a design system's AI readiness through three sequential assessments: (a) design library quality for AI consumption, (b) consistency between Figma design and codebase, and (c) code implementation quality. Results are displayed in a web dashboard with prioritized recommendations, and test runs are logged with KPIs for tracking progress over time.
 
 ---
 
@@ -10,22 +10,22 @@ This document outlines a comprehensive testing tool that evaluates SDX's AI read
 
 ### Current Challenge
 
-As AI assistants become primary coding tools, design systems must be optimized for machine consumption, not just human documentation. When AI generates code using SDX, common failures occur:
+As AI assistants become primary coding tools, design systems must be optimized for machine consumption, not just human documentation. When AI generates code using a design system, common failures occur:
 
 - **Token Misuse**: Hardcoded values (`#0066CC`) instead of semantic tokens (`var(--color-action-primary)`)
-- **Component Reinvention**: Custom implementations instead of using existing SDX components
+- **Component Reinvention**: Custom implementations instead of using existing design system components
 - **Pattern Violations**: Non-standard spacing, layout, or architecture choices
 - **Accessibility Gaps**: Missing ARIA labels, keyboard navigation, focus management
-- **Architecture Mismatch**: Implementation styles that don't match SDX patterns
+- **Architecture Mismatch**: Implementation styles that don't match design system patterns
 
 ### Business Impact
 
-- Inconsistent implementations across Swisscom products
+- Inconsistent implementations across products
 - Technical debt from AI-generated code
 - Maintenance burden from undocumented patterns
 - Accessibility compliance risks
 - Lost design system investment ROI
-- SDX core team time spent fixing AI-generated code issues
+- Design system core team time spent fixing AI-generated code issues
 
 ---
 
@@ -33,7 +33,7 @@ As AI assistants become primary coding tools, design systems must be optimized f
 
 ### Three-Phase Assessment Architecture
 
-The tool performs three sequential assessments to comprehensively evaluate SDX's AI readiness:
+The tool performs three sequential assessments to comprehensively evaluate a design system's AI readiness:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -49,7 +49,7 @@ The tool performs three sequential assessments to comprehensively evaluate SDX's
 ┌─────────────────────────────────────────────────────────┐
 │  Phase B: Design-Code Consistency Assessment            │
 │  - Check Figma code references (if available)           │
-│  - Count design components linked to code components     │
+│  - Count design components linked to code components    │
 │  - Token mapping verification (Figma → CSS variables)   │
 │  - Component mapping verification (Figma → Web Comp)    │
 │  - Identify orphaned components (design or code only)   │
@@ -57,7 +57,7 @@ The tool performs three sequential assessments to comprehensively evaluate SDX's
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────┐
-│  Phase C: Code Implementation Quality Assessment       │
+│  Phase C: Code Implementation Quality Assessment        │
 │  - Token usage patterns                                 │
 │  - Component architecture                               │
 │  - Code documentation quality                           │
@@ -67,10 +67,10 @@ The tool performs three sequential assessments to comprehensively evaluate SDX's
                      │
                      ▼
 ┌─────────────────────────────────────────────────────────┐
-│  Dashboard: Metrics + Prioritized Recommendations     │
+│  Dashboard: Metrics + Prioritized Recommendations       │
 │  - Overall AI Readiness Score                           │
 │  - Design Quality Score                                 │
-│  - Code Quality Score                                    │
+│  - Code Quality Score                                   │
 │  - Design-Code Consistency Score                        │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -100,14 +100,14 @@ The assessment uses multiple data sources to get a comprehensive view:
    - Token usage within components
    - Component organization and structure
 
-2. **Figma "SDX Documentation" File**
+2. **Figma "Documentation" File**
    - Component documentation pages
    - Usage guidelines and examples
    - Do's and Don'ts
    - Design specifications
 
 3. **Supernova Documentation** (Work in Progress)
-   - Official SDX documentation: https://sdx.supernova-docs.io
+   - Official design system documentation: (e.g., Supernova, Storybook, custom site)
    - Component documentation
    - Guidelines and standards
    - Foundation documentation
@@ -120,13 +120,13 @@ The assessment uses multiple data sources to get a comprehensive view:
 ### Metrics to Measure
 
 #### 1. Token Naming Consistency
-- Count token systems found (currently 3: Primary, SDX-prefixed, Legacy)
+- Count token systems found (currently 3: Primary, Prefixed, Legacy)
 - Calculate percentage of components using each system
 - Identify mixed-system usage within components
 - **Score**: 0-100 based on system uniformity
 
 #### 2. Component Documentation Clarity
-- Check for component descriptions in Figma "SDX Documentation" file
+- Check for component descriptions in Figma "Documentation" file
 - Verify naming conventions (e.g., `Button_primary` vs `ButtonPrimary`)
 - Assess state documentation completeness
 - Check for usage examples and guidelines in documentation
@@ -202,7 +202,7 @@ As part of Phase A, the tool generates a comprehensive component inventory:
 
 **Data Sources**:
 - Figma API/MCP for component and token extraction (Design Library)
-- Figma API/MCP for "SDX Documentation" file analysis
+- Figma API/MCP for "Documentation" file analysis
 - Supernova documentation scraping/API (if available)
 - Manual analysis of Figma structure (pages, organization)
 - Token system analysis from existing Figma analysis
@@ -230,7 +230,7 @@ Assess how well Figma design components and tokens map to codebase implementatio
 #### 2. Component Mapping Verification
 - For components with code references: verify link validity
 - For components without references: attempt name-based matching
-  - Figma: `Button_primary` → Code: `<sdx-button>` or `Button` component
+  - Figma: `Button_primary` → Code: `<design-system-button>` or `Button` component
   - Use fuzzy matching for variations (e.g., `ButtonPrimary`, `button-primary`)
 - Identify orphaned components:
   - Design-only: Components in Figma with no code equivalent
@@ -265,7 +265,7 @@ Assess how well Figma design components and tokens map to codebase implementatio
 
 ### Objective
 
-Assess the quality of codebase implementation regarding AI-friendliness and SDX pattern adherence.
+Assess the quality of codebase implementation regarding AI-friendliness and design system pattern adherence.
 
 ### Metrics to Measure
 
@@ -276,7 +276,7 @@ Assess the quality of codebase implementation regarding AI-friendliness and SDX 
 - Check for deprecated token usage
 
 #### 2. Component Architecture
-- Verify component structure follows SDX patterns
+- Verify component structure follows design system patterns
 - Check for proper Web Component implementation
 - Assess component composition and reusability
 - Verify component exports and naming
@@ -377,7 +377,7 @@ Each test run captures:
 - **Data Sources**: 
   - Figma file version/commit
   - Git repository commit hash
-  - SDX version (if available)
+  - Design system version (if available)
 - **KPIs**: 
   - Overall AI Readiness Score
   - Design Quality Score
@@ -392,7 +392,7 @@ Each test run captures:
 - View all historical runs in chronological order
 - Compare runs side-by-side
 - Track progress metrics over time
-- Filter by date range, SDX version, or assessment phase
+- Filter by date range, Design system version, or assessment phase
 
 ### Progress Tracking
 
@@ -426,7 +426,7 @@ Advanced testing is enabled when quality thresholds are met:
 1. Select Design from Figma
    ↓
 2. Generate UI Implementation (using AI)
-   - Provide design + SDX context to AI
+   - Provide design + design system context to AI
    - Generate code implementation
    ↓
 3. Compare Generated UI vs Human Implementation
@@ -456,7 +456,7 @@ Advanced testing is enabled when quality thresholds are met:
 - [ ] Set up project structure (TypeScript, React dashboard, Node.js backend)
 - [ ] Implement Figma API/MCP integration for Phase A
   - [ ] Connect to Figma Design Library
-  - [ ] Connect to Figma "SDX Documentation" file
+  - [ ] Connect to Figma "Documentation" file
 - [ ] Implement Supernova documentation integration (scraping/API)
 - [ ] Build component inventory extraction and documentation generation
   - [ ] Generate overview file (COMPONENTS_INVENTORY.md)
@@ -507,7 +507,7 @@ Advanced testing is enabled when quality thresholds are met:
 - `src/assessments/consistency.ts` - Phase B assessment logic  
 - `src/assessments/code-quality.ts` - Phase C assessment logic
 - `src/data-sources/figma-design-library.ts` - Figma Design Library integration
-- `src/data-sources/figma-documentation.ts` - Figma "SDX Documentation" file integration
+- `src/data-sources/figma-documentation.ts` - Figma "Documentation" file integration
 - `src/data-sources/supernova-docs.ts` - Supernova documentation integration
 - `src/inventory/component-extractor.ts` - Component data extraction
 - `src/inventory/component-doc-generator.ts` - Component documentation generator
@@ -534,7 +534,7 @@ Advanced testing is enabled when quality thresholds are met:
 2. How should we handle partial assessments (e.g., only design available)?
 3. Should the dashboard support real-time updates or batch processing?
 4. What authentication/access control is needed for the dashboard?
-5. How should we handle multiple SDX versions in the same dashboard?
+5. How should we handle multiple Design system versions in the same dashboard?
 
 ---
 

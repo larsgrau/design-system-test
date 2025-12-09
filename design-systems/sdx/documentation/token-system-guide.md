@@ -336,7 +336,7 @@ When testing AI-generated code:
 ## Related Documents
 
 - [../../memory-bank/techContext.md](../../memory-bank/techContext.md) - Full technical context
-- [../../docs/guides/token_documentation_requirements.md](../../docs/guides/token_documentation_requirements.md) - Recommendations for SDX team
+- [../guides/token-documentation-requirements.md](../guides/token-documentation-requirements.md) - Recommendations for SDX team
 - [../analysis/complete-analysis.md](../analysis/complete-analysis.md) - Complete Figma findings
 - [../analysis/summary.md](../analysis/summary.md) - Executive summary
 

@@ -23,8 +23,12 @@ This folder contains all analysis, documentation, and reports specific to the SD
 - **[Token Documentation Complete](./documentation/token-documentation-complete.md)** - Overview of token documentation created
 - **[Token System Guide](./documentation/token-system-guide.md)** - Token reference for AI code generation
 
+### Guides & Plans
+- **[Token Documentation Requirements](./guides/token-documentation-requirements.md)** - Recommendations for SDX team
+- **[GitHub Verification Plan](./plans/github-verification-plan.md)** - Code verification methodology
+
 ### Reports
-- **[Management Summary](./reports/management-summary.md)** - Project status and progress
+- **[Analysis Progress & Status](./reports/management-summary.md)** - SDX analysis progress and current status
 
 ---
 

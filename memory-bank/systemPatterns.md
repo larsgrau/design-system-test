@@ -48,7 +48,7 @@ test-scenarios/
       ai-generated/
         code/                     # AI's implementation
         metadata.json             # Generation context (AI version, date, etc.)
-      design-systems/sdx/analysis/
+      design-systems/{design-system-name}/analysis/
         automated-findings.json   # Automated detection results
         manual-review.md          # Human reviewer notes
       report/
@@ -81,16 +81,16 @@ Impact: High (consistency & maintainability)
 
 ```javascript
 // Automated checks:
-- Detect SDX component tags: /<sdx-\w+/
+- Detect design system component tags (pattern varies by system)
 - Check for proper imports
 - Flag custom implementations of standard components
-- Verify component is from @swisscom/sdx package
+- Verify component is from design system package
 ```
 
 **Example Finding**:
 ```
 ❌ Found: Custom <button> implementation
-✓ Should use: <sdx-button>
+✓ Should use: <design-system-button>
 Category: Component Reinvention
 Impact: High (maintenance & consistency)
 ```
@@ -140,7 +140,7 @@ Impact: Critical (WCAG compliance)
 ```javascript
 // Automated checks:
 - Detect styling approach (inline vs classes vs CSS-in-JS)
-- Verify proper SDX scope (<body class="sdx">)
+- Verify proper design system scope (varies by system)
 - Check for framework-specific best practices
 - Validate file structure patterns
 ```
@@ -182,7 +182,7 @@ versions/
 {
   "version_name": "baseline-2024-12",
   "date": "2024-12-03",
-  "sdx_version": "3.5.0",
+  "design_system_version": "1.0.0",
   "ai_tool": "Cursor",
   "ai_model": "claude-sonnet-4",
   "test_scenarios": [
@@ -204,7 +204,7 @@ versions/
 
 ### Gap Report Structure
 ```markdown
-# SDX AI Readiness Gap Report
+# Design System AI Readiness Gap Report
 Version: {version-name}
 Date: {date}
 

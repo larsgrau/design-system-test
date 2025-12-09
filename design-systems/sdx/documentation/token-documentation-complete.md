@@ -31,7 +31,7 @@
 
 ### 2. **SDX Team Recommendations** ✅
 
-**File**: [../../docs/guides/token_documentation_requirements.md](../../docs/guides/token_documentation_requirements.md)  
+**File**: [../guides/token-documentation-requirements.md](../guides/token-documentation-requirements.md)  
 **For**: SDX business owner & core team  
 **Status**: Ready for review
 
@@ -123,7 +123,7 @@
 
 ### Where Primary Token System **SHOULD BE** Documented (SDX)
 
-Based on our recommendations in `../../docs/guides/token_documentation_requirements.md`:
+Based on our recommendations in `../guides/token-documentation-requirements.md`:
 
 #### Minimum Viable Documentation (Phase 1)
 1. ✅ **SDX Getting Started** → Add "Design Tokens" section
@@ -164,7 +164,7 @@ Based on our recommendations in `../../docs/guides/token_documentation_requireme
 5. Remove "UNVERIFIED" warnings once confirmed
 
 ### For SDX Team (Recommendations)
-1. Review `../../docs/guides/token_documentation_requirements.md`
+1. Review `../guides/token-documentation-requirements.md`
 2. Prioritize documentation phases
 3. Implement Phase 1 (immediate documentation)
 4. Plan Phase 2 (token system cleanup)
@@ -214,7 +214,7 @@ Based on our recommendations in `../../docs/guides/token_documentation_requireme
 - [token-system-guide.md](./token-system-guide.md) - Token reference (this is for you!)
 
 **For SDX Team**:
-- [../../docs/guides/token_documentation_requirements.md](../../docs/guides/token_documentation_requirements.md) - Recommendations
+- [../guides/token-documentation-requirements.md](../guides/token-documentation-requirements.md) - Recommendations
 
 **Detailed Analysis**:
 - [../analysis/complete-analysis.md](../analysis/complete-analysis.md) - Full findings

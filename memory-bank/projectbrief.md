@@ -1,10 +1,10 @@
-# Project Brief: SDX AI Readiness Testing Tool
+# Project Brief: Design System AI Readiness Testing Tool
 
 ## Project Overview
-A systematic testing tool to evaluate how well the SDX (Swisscom Design System) is understood and applied by AI coding assistants, specifically targeting "vibe coding" scenarios where developers use AI to generate UI implementations.
+A systematic testing tool to evaluate how well design systems are understood and applied by AI coding assistants, specifically targeting "vibe coding" scenarios where developers use AI to generate UI implementations.
 
 ## Core Problem
-Need to ensure AI assistants understand SDX well enough to:
+Need to ensure AI assistants understand design systems well enough to:
 - Apply design tokens correctly instead of hardcoded values
 - Use existing components instead of reinventing them
 - Follow documented patterns and constraints
@@ -12,14 +12,14 @@ Need to ensure AI assistants understand SDX well enough to:
 - Match the design system's architecture and implementation style
 
 ## Primary Goal
-Produce a comprehensive gap report that identifies specific improvements needed in SDX to make it more AI-friendly, with actionable recommendations for the design system authors.
+Produce a comprehensive gap report that identifies specific improvements needed in design systems to make them more AI-friendly, with actionable recommendations for the design system authors.
 
 ## Key Stakeholders
-- **Business Owner**: SDX business owner (decision maker)
-- **Core Team**: SDX designers and developers (maintainers)
-- **Primary Audience**: Combined SDX core team (designers + developers)
-- **Secondary Audience**: Swisscom product teams using SDX
-- **Context**: Swisscom internal design system (SDX) used across multiple products
+- **Business Owner**: Design system business owner (decision maker)
+- **Core Team**: Design system designers and developers (maintainers)
+- **Primary Audience**: Combined design system core team (designers + developers)
+- **Secondary Audience**: Product teams using the design system
+- **Context**: Design systems used across multiple products
 
 ## Success Criteria
 1. Generate reproducible, version-controlled test scenarios
@@ -34,16 +34,16 @@ Produce a comprehensive gap report that identifies specific improvements needed 
 5. Support named versions for tracking valuable iterations
 
 ## Available Resources
-- Read-only access to SDX GitHub repository (pending)
-- Access to SDX documentation at https://sdx.swisscom.com
-- Access to SDX Figma design library
-- Access to live Swisscom implementations for reference (e.g., My Swisscom with login credentials)
+- Read-only access to design system GitHub repositories (as needed)
+- Access to design system documentation sites
+- Access to Figma design libraries
+- Access to live product implementations for reference
 - Can obtain source code and design files from existing implementations
 
 ## Constraints
 - Initial focus on Cursor IDE, extensible to other AI tools later
 - Testing must be reproducible and version-controlled
-- Output must be actionable for SDX core team
+- Output must be actionable for design system core teams
 
 ## Scope
 - **Phase 1**: Foundation (design tokens)
@@ -51,4 +51,3 @@ Produce a comprehensive gap report that identifies specific improvements needed 
 - **Phase 3**: Complete design system
 - **Testing Method**: Three-way comparison (Figma → Existing code → AI-generated)
 - **Future**: MCP server integration for enhanced AI context
-
